@@ -1,0 +1,140 @@
+.navbar{
+    width: 100%;
+    overflow: auto;
+    background-color: rgb(1, 163, 238);
+}
+.navbar p{
+    float: right;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+}
+.navbar a{
+    float: right;
+    font-size: 17px;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+}
+.navbar img{
+    float: right;
+    padding:12px;
+}
+.navbar a:hover{
+    background-color: rgb(1, 163, 238);
+}
+.block1{
+    width: 10%;
+    height: 50%;
+    background-color: white;
+    padding: 5px;
+    border: solid 2px rgb(1, 163, 238);
+    float: left;
+    overflow: auto;
+}
+.block2{
+    width: 88%;
+    height: 85%;
+    background-color: white;
+    padding: 5px;
+    border: solid 2px rgb(1, 163, 238);
+    float: right;
+    overflow: auto;
+}
+form{
+    margin-top: 2px;
+    font: 14px Helvetica, Arial;
+    position: relative;
+    bottom: 0;
+    width: 88.9%;
+    float: right;
+}
+form input{
+    border: 2px solid rgb(1, 163, 238);
+    padding: 10px;
+    width: 90%;
+    margin-right: .9%;
+}
+form button{
+    width: 9%;
+    background-color: rgb(1, 163, 238);
+    border: none;
+    padding: 10px;
+}
+#messages{
+    list-style-type: none;
+    margin:0;
+    padding: 0;
+}
+#messages li{
+    padding: 5px 10px;
+}
+#messages li:nth-child(odd){
+    background: #eee;
+}
+.add{
+    font-size: 25px;
+    font-weight: bold;
+}
+.add:hover, add:focus{
+    cursor: pointer;
+}
+.error{
+    color: red;
+}
+.private{
+    font-style: italic;
+}
+.block1 ul{
+    list-style-type: square;
+    margin-left: 2px;
+    padding: 0px 0px 0px 15px;
+}
+.block1 li, .block1 a{
+    float: left;
+    height: 35px;
+    line-height: 35px;
+    position: relative;
+    font-size: 15px;
+    margin-bottom: 12px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: background-color 1.5s ease;
+}
+.block1 a{
+    padding: 0 60px 0 12px;
+    background: #0089e0;
+    color: #fff;
+    text-decoration: none;
+    border-top-right-radius: 4px;
+}
+.block1 a:before{
+    float: left;
+    position: absolute;
+    top:0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    border-color: transparent #0089e0 transparent transparent;
+    border-style: solid;
+    border-width: 18px 12px 18px 0;
+}
+.block1 a:after{
+    float: left;
+    position: absolute;
+    top: 15px;
+    left: 0px;
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    background: white;
+    box-shadow: -1px -1px 2px #004977;
+}
+.block1 a:hover{
+    background: #555555;
+}
+.block1 a:hover:before{
+    border-color: transparent #0089e0 transparent transparent;
+}

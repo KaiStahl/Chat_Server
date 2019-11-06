@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Chat Room</title>
+        <!--
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font: 13px Helvetica, Arial; }
+            form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
+            form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
+            form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
+            #messages { list-style-type: none; margin: 0; padding: 0; }
+            #messages li { padding: 5px 10px; }
+            #messages li:nth-child(odd) { background: #eee; }
+        </style>
+        -->
+        <link rel="stylesheet" href="/chat_room.css">
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+    </head>
+    <body>
+        <div class="block1">
+            <div class="navbar">
+                <p style="float:left">Online Users</p>
+            </div>
+            <ul id="list">
+                <!--
+                <li id="list"></li>
+                -->
+            </ul>
+        </div>
+        <div class="block2">
+            <div class="navbar">
+                <a href="#" style="float:left">Group Chat</a>
+            </div>
+            <ol>
+                <li id="messages"><a></a></li>
+            </ol>
+            <section id = "feedback"></section>
+        </div>
+        <form action="/" method="POST" id="chatForm" enctype="multipart/form-data">
+                
+            <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
+            <input type="file" name="upload" multiple>
+            
+        </form>
+        <script>
+            var socket = io();
+            // submit text message without reload/refresh the page
+            $('form').submit(function(e){
+                e.preventDefault(); // prevents page reloading
+                socket.emit('chat_message', $('#txt').val(), function(data){
+                    /*
+                    var dt = new Date($.now());
+                    var current = dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+                    var show = '('+current+')   ' + msg;
+                    */
+                    $('#messages').append($('<li class="error">').html(data));
+                });
+                $('#txt').val('');
+                return false;
+            });
+            socket.on('chat_message', function(msg){
+                var dt = new Date($.now());
+                var current = dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+                var show = '('+current+')   ' + msg;
+                $('#messages').append($('<li>').html(show));
+            });
+            socket.on('online', function(username){
+                $('#messages').append($('<li>').html(username));
+            });
+            socket.on('list_user', function(data){
+                var html = '';
+                for(i = 0;i<data.length; i++){
+                    html += '<li><a><strong>'+data[i]+'</strong></a></li><br>';
+                    $('#list').html(html);
+                }
+                //$('#list').html(html);
+            });
+            var username = prompt('Enter your username: ');
+            socket.emit('username', username, function(data){
+                if(!data){
+                    alert('Username is already taken');
+                }
+            });
+            /*
+            $('#messages').bind("keypress", () => {
+                socket.emit('typing');
+            });
+            socket.on('typing', (data) => {
+                $('#feedback').html('<p><i>' + username + ' is typing ... ' + '</i></p>');
+            });
+            */
+            socket.on('private', function(data){
+                var dt = new Date($.now());
+                var current = dt.getHours() + ':' + dt.getMinutes() + ':' + dt.getSeconds();
+                var show = '('+current+')   ' + data;
+                $('#messages').append($('<li class="private">').html(show));
+            });
+        </script>
+    </body>
+</html>
