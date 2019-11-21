@@ -4,6 +4,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 var formidable = require('formidable');
 var list_user = {};
+let port = process.env.PORT || 3000;
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/views/index.html');
@@ -86,6 +87,6 @@ io.sockets.on('connection', function(socket){
     });
 });
 
-const server = http.listen(3000, function(){
-    console.log('localhost:3000, Ready!');
+const server = http.listen(port, function(){
+    console.log('port: 3000, Ready!');
 });
