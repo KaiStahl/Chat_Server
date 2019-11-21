@@ -18,6 +18,10 @@
         <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
+		<div id="input">
+				<input type="text" id="username" placeholder="Enter Username">
+				<button id="confirm">Confirm</button>
+		</div>
         <div class="block1">
             <div class="navbar">
                 <p style="float:left">Online Users</p>
@@ -37,7 +41,7 @@
             </ol>
             <section id = "feedback"></section>
         </div>
-        <form action="/" method="/" id="chatForm" enctype="multipart/form-data">
+        <form action="/" method="post" id="chatForm" enctype="multipart/form-data">
                 
             <input id="txt" autocomplete="off" autofocus="on" placeholder="type your message here..." /><button>Send</button>
             <input type="file" name="upload" multiple>
@@ -76,12 +80,20 @@
                 }
                 //$('#list').html(html);
             });
-            var username = prompt('Enter your username: ');
+			$(document).ready(function(){
+				$("#confirm").click(function(){
+					var username = $("#username").val();
+					socket.emit('username', username, function(data){});
+				});
+			});
+			
+            /*var username = prompt('Enter your username: ');
             socket.emit('username', username, function(data){
                 if(!data){
                     alert('Username is already taken');
                 }
             });
+			*/
             /*
             $('#messages').bind("keypress", () => {
                 socket.emit('typing');
