@@ -26,6 +26,7 @@ io.sockets.on('connection', function(socket){
             io.emit('online', ' <i><strong> ' + socket.username + '</strong> joined the chat group </i>');
             list_user[socket.username] = socket;
             updateList();
+			console.log(username + ' joined the chat')
         }
     });
     function updateList()
